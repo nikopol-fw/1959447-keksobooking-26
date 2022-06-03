@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Elena Mihailova](https://up.htmlacademy.ru/javascript/26/user/1959447).
-* Наставник: `Неизвестно`.
+* Наставник: [Николай Думчев](https://htmlacademy.ru/profile/nikopol-fw).
 
 ---
 
