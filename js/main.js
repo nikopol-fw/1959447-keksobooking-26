@@ -69,7 +69,7 @@ const getNewArrayFeatures = () => {
 
 const offerValue = {
   title: titleText,
-  address: 'location.'  + getRandomPositiveFloat(35.65000, 35.70000) +  ' location.'  + getRandomPositiveFloat(139.70000, 139.80000),
+  address: 'location.' + getRandomPositiveFloat(35.65000, 35.70000) + ' location.' + getRandomPositiveFloat(139.70000, 139.80000),
   price: getRandomPositiveFloat(minPrice, maxPrice, 0),
   type: types[getRandomPositiveInteger(0, types.length - 1)],
   rooms: getRandomPositiveFloat(minRooms, maxRooms, 0),
@@ -86,22 +86,22 @@ const offerLocation = {
   lng: getRandomPositiveFloat(139.70000, 139.80000)
 };
 
-const avatarImg=getRandomPositiveFloat(1, 10, 0) < 10 ? 0 + getRandomPositiveFloat(1, 10, 0) : getRandomPositiveFloat(1, 10, 0);
+const avatarImg = getRandomPositiveFloat(1, 10, 0) < 10 ? 0 + getRandomPositiveFloat(1, 10, 0) : getRandomPositiveFloat(1, 10, 0);
 
-
-
-
-const newPlace = {
-  author: 'img/avatars/user' + avatarImg + '.png',
-  offers: offerValue,
-  location: offerLocation
+const createNewPlace = () => {
+  return {
+    author: 'img/avatars/user' + avatarImg + '.png',
+    offers: offerValue,
+    location: offerLocation
+  };
 };
-// eslint-disable-next-line no-console
-console.log(newPlace);
 
-// const similarNewPlace = Array.from({
-//   length: 10
-// }, newPlace);
+const similarNewPlace = Array.from({
+  length: 10
+}, createNewPlace);
+
+// eslint-disable-next-line no-console
+console.log(similarNewPlace);
 
 
 // задание 1 - оставлено справочно
