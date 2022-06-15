@@ -1,4 +1,9 @@
-//случайное число в диапазоне с количеством знаков после запятой
+/** Функция генерации случайного числа в диапазоне с количеством знаков после запятой
+// * @param {number} a - минимальное значение диапазона;
+//  * @param {number} b - максимальное значение диапазона;
+//  * @param {number} digits - количество знаков после запятой;
+//  * @returns {number}
+ **/
 function getRandomPositiveFloat(a, b, digits = 1) {
   const lower = Math.min(Math.abs(a), Math.abs(b));
   const upper = Math.max(Math.abs(a), Math.abs(b));
@@ -6,8 +11,12 @@ function getRandomPositiveFloat(a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
-//случайный индекс из массива элементов
-//Источник - htmlacademy.ru
+/** Функция возвращающая случайное целое число из переданного диапазона включительно
+ * https://up.htmlacademy.ru/profession/frontender/13/javascript/26/tasks/8
+// * @param {number} a - минимальное значение диапазона;
+//  * @param {number} b - максимальное значение диапазона;
+//  * @returns {number}
+ **/
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -16,7 +25,6 @@ const getRandomPositiveInteger = (a, b) => {
 };
 
 // Массивы
-// TODO Массивы названы существительными во множественном числе.
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkins = ['12:00', '13:00', '14:00'];
 const checkouts = ['12:00', '13:00', '14:00'];
@@ -30,7 +38,7 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
 const titleText = 'Доступный вариант рядом';
 const descriptionText = '1 extra-large double bed.';
 
-//Значения ограничивающие диапазоны
+// Значения ограничивающие диапазоны
 const minPrice = 10;
 const maxPrice = 100;
 const minRooms = 1;
@@ -38,9 +46,10 @@ const maxRooms = 6;
 const foreverAlone = 1;
 const maxGuests = 6;
 
-
-//возвращает массив строк случайной длины
-//источник - https://ru.stackoverflow.com/questions/1293985/
+/** Функция возвращает массив строк случайной длины
+ * источник - https://ru.stackoverflow.com/questions/1293985/
+ * для свойства  photos
+ */
 const getNewArrayPhotos = () => {
   const newArray = [];
   const newArrayLength = getRandomPositiveInteger(1, photos.length);
@@ -53,6 +62,10 @@ const getNewArrayPhotos = () => {
   return newArray;
 };
 
+/** Функция возвращает массив строк случайной длины
+ * источник - https://ru.stackoverflow.com/questions/1293985/
+ * для свойства features
+ */
 const getNewArrayFeatures = () => {
   const newArray = [];
   const newArrayLength = getRandomPositiveInteger(1, features.length);
@@ -65,68 +78,49 @@ const getNewArrayFeatures = () => {
   return newArray;
 };
 
-//todo  Адреса изображений не повторяются.
+const maxAvatar = 10;
+const avatarsImg = Array.from({length: maxAvatar}, (item, index) => {
+  const userNumber = index + 1;
+  const userNumberString = userNumber < 10 ? `0${userNumber}` : userNumber;
+  return `img/avatars/user${userNumberString}.png`;
+});
 
-const offerValue = {
-  title: titleText,
-  address: 'location.' + getRandomPositiveFloat(35.65000, 35.70000) + ' location.' + getRandomPositiveFloat(139.70000, 139.80000),
-  price: getRandomPositiveFloat(minPrice, maxPrice, 0),
-  type: types[getRandomPositiveInteger(0, types.length - 1)],
-  rooms: getRandomPositiveFloat(minRooms, maxRooms, 0),
-  guests: getRandomPositiveFloat(foreverAlone, maxGuests, 0),
-  checkin: checkins[getRandomPositiveInteger(0, checkins.length - 1)],
-  checkout: checkouts[getRandomPositiveInteger(0, checkouts.length - 1)],
-  features: getNewArrayFeatures(),
-  description: descriptionText,
-  photos: getNewArrayPhotos()
-};
+const generateAdvertisement = () => {
+  const randomIndex = getRandomPositiveInteger(0, avatarsImg.length - 1);
+  const [author] = avatarsImg.splice(randomIndex, 1);
 
-const offerLocation = {
-  lat: getRandomPositiveFloat(35.65000, 35.70000),
-  lng: getRandomPositiveFloat(139.70000, 139.80000)
-};
+  const offer = {
+    title: titleText,
+    address: `${getRandomPositiveFloat(35.65000, 35.70000, 5)}, ${getRandomPositiveFloat(139.70000, 139.80000, 5)}`,
+    price: getRandomPositiveFloat(minPrice, maxPrice, 0),
+    type: types[getRandomPositiveInteger(0, types.length - 1)],
+    rooms: getRandomPositiveFloat(minRooms, maxRooms, 0),
+    guests: getRandomPositiveFloat(foreverAlone, maxGuests, 0),
+    checkin: checkins[getRandomPositiveInteger(0, checkins.length - 1)],
+    checkout: checkouts[getRandomPositiveInteger(0, checkouts.length - 1)],
+    features: getNewArrayFeatures(),
+    description: descriptionText,
+    photos: getNewArrayPhotos()
+  };
 
-const avatarImg = getRandomPositiveFloat(1, 10, 0) < 10 ? 0 + getRandomPositiveFloat(1, 10, 0) : getRandomPositiveFloat(1, 10, 0);
+  const location = {
+    lat: getRandomPositiveFloat(35.65000, 35.70000, 5),
+    lng: getRandomPositiveFloat(139.70000, 139.80000, 5)
+  };
 
-const createNewPlace = () => {
   return {
-    author: 'img/avatars/user' + avatarImg + '.png',
-    offers: offerValue,
-    location: offerLocation
+    author,
+    offer,
+    location
   };
 };
 
-const similarNewPlace = Array.from({
+/** Создание массива объявленной длины
+ *  Источник https://up.htmlacademy.ru/profession/frontender/13/javascript/26/demos/7619#12
+ */
+const similarAdvertisement = Array.from({
   length: 10
-}, createNewPlace);
+}, generateAdvertisement);
 
 // eslint-disable-next-line no-console
-console.log(similarNewPlace);
-
-
-// задание 1 - оставлено справочно
-/**
- * Функция для получения случайного числа
- * https://javascript.ru/Math.Random
-//  * @param {number} min - минимальное значение диапазона;
-//  * @param {number} max - максимальное значение диапазона;
-//  * @param {number} grade - количество знаков после запятой;
-//  * @returns {number}
-//  */
-
-// //todo Не добавлена проверка на отрицательное значение grade, тк есть в самом методе to.Fixed
-
-// const getRandomNumber = (min, max, grade) => {
-//   if (min < 0 || max < 0 || min > max) {
-//     throw new Error('Неверное значение диапазона.');
-//   }
-
-//   let randomNumber = Math.random() * (max - min) + min;
-//   randomNumber = +randomNumber.toFixed(grade);
-//   return randomNumber;
-// };
-
-// const generatedNumber = getRandomNumber(50, 500, 4);
-// //todo служебное сообщение
-// // eslint-disable-next-line no-console
-// console.log(generatedNumber);
+console.log(similarAdvertisement);
