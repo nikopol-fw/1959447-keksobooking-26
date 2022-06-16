@@ -1,8 +1,9 @@
-/** Функция генерации случайного числа в диапазоне с количеством знаков после запятой
-// * @param {number} a - минимальное значение диапазона;
-//  * @param {number} b - максимальное значение диапазона;
-//  * @param {number} digits - количество знаков после запятой;
-//  * @returns {number}
+/**
+ * Функция генерации случайного числа в диапазоне с количеством знаков после запятой
+ * @param {number} a - минимальное значение диапазона;
+ * @param {number} b - максимальное значение диапазона;
+ * @param {number} digits - количество знаков после запятой;
+ * @returns {number}
  **/
 function getRandomPositiveFloat(a, b, digits = 1) {
   const lower = Math.min(Math.abs(a), Math.abs(b));
@@ -11,11 +12,12 @@ function getRandomPositiveFloat(a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
-/** Функция возвращающая случайное целое число из переданного диапазона включительно
- * https://up.htmlacademy.ru/profession/frontender/13/javascript/26/tasks/8
-// * @param {number} a - минимальное значение диапазона;
-//  * @param {number} b - максимальное значение диапазона;
-//  * @returns {number}
+/**
+ * Функция возвращающая случайное целое число из переданного диапазона включительно
+ * https://up.htmlacademy.ru/profession/frontender/13/javascript/26/tasks/
+ * @param {number} a - минимальное значение диапазона;
+ * @param {number} b - максимальное значение диапазона;
+ * @returns {number}
  **/
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -46,48 +48,70 @@ const maxRooms = 6;
 const foreverAlone = 1;
 const maxGuests = 6;
 
-/** Функция возвращает массив строк случайной длины
- * источник - https://ru.stackoverflow.com/questions/1293985/
- * для свойства  photos
+/**
+ * Функция перемешивает элементы массива
+ * источник - https://habr.com/ru/post/358094/
+ * @param {number} j - выбор случайного элемента
  */
-const getNewArrayPhotos = () => {
-  const newArray = [];
-  const newArrayLength = getRandomPositiveInteger(1, photos.length);
-
-  for (let i = 1; i <= newArrayLength; i++) {
-    const options = photos.shift();
-    newArray.push(options);
+function shuffle(featuresCopy) {
+  let j, temp;
+  //перебираем массив с последнего элемента
+  for (let i = featuresCopy.length - 1; i > 0; i--) {
+    //выбираем случайный элемент массива - j
+    j = Math.floor(Math.random() * (i + 1));
+    // меняем местами с последним элементом
+    temp = featuresCopy[j];
+    featuresCopy[j] = featuresCopy[i];
+    featuresCopy[i] = temp;
   }
+  return featuresCopy;
+}
 
-  return newArray;
-};
-
-/** Функция возвращает массив строк случайной длины
- * источник - https://ru.stackoverflow.com/questions/1293985/
- * для свойства features
+/**
+ * Функция создает копию массива features с другим количеством и порядком элементов
  */
 const getNewArrayFeatures = () => {
-  const newArray = [];
-  const newArrayLength = getRandomPositiveInteger(1, features.length);
+  //создаем копию
+  const featuresCopy = features.slice();
+  //перемешиваем
+  shuffle(featuresCopy);
+  //случайное число
+  const randomIndexFeatures = getRandomPositiveInteger(0, featuresCopy.length - 1);
+  //отрезаем некоторое количество элементов
+  featuresCopy.splice(randomIndexFeatures, getRandomPositiveFloat(0, features.length-1));
+  return (featuresCopy);
+};
 
-  for (let i = 1; i <= newArrayLength; i++) {
-    const options = features.shift();
-    newArray.push(options);
-  }
-
-  return newArray;
+//todo это дублирование кода?
+const getNewArrayPhotos = () => {
+  const photosCopy = photos.slice();
+  shuffle(photosCopy);
+  const randomIndexPhotos = getRandomPositiveInteger(0, photosCopy.length - 1);
+  photosCopy.splice(randomIndexPhotos, getRandomPositiveFloat(0, photos.length-1));
+  return (photosCopy);
 };
 
 const maxAvatar = 10;
-const avatarsImg = Array.from({length: maxAvatar}, (item, index) => {
+/**
+ * Создание массива заданной длины
+ * @returns {string}
+ */
+const avatarsImg = Array.from({
+  length: maxAvatar
+}, (item, index) => {
   const userNumber = index + 1;
   const userNumberString = userNumber < 10 ? `0${userNumber}` : userNumber;
   return `img/avatars/user${userNumberString}.png`;
 });
 
 const generateAdvertisement = () => {
+
   const randomIndex = getRandomPositiveInteger(0, avatarsImg.length - 1);
-  const [author] = avatarsImg.splice(randomIndex, 1);
+  const [avatar] = avatarsImg.splice(randomIndex, 1);
+
+  const author = {
+    avatar,
+  };
 
   const offer = {
     title: titleText,
@@ -115,7 +139,8 @@ const generateAdvertisement = () => {
   };
 };
 
-/** Создание массива объявленной длины
+/**
+ * Создание массива объявленной длины
  *  Источник https://up.htmlacademy.ru/profession/frontender/13/javascript/26/demos/7619#12
  */
 const similarAdvertisement = Array.from({
