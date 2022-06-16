@@ -10,7 +10,7 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   const upper = Math.max(Math.abs(a), Math.abs(b));
   const result = Math.random() * (upper - lower) + lower;
   return +result.toFixed(digits);
-}
+};
 
 /**
  * Функция возвращающая случайное целое число из переданного диапазона включительно
@@ -78,7 +78,7 @@ const getNewArrayFeatures = () => {
   //случайное число
   const randomIndexFeatures = getRandomPositiveInteger(0, featuresCopy.length - 1);
   //отрезаем некоторое количество элементов
-  featuresCopy.splice(randomIndexFeatures, getRandomPositiveFloat(0, features.length-1));
+  featuresCopy.splice(randomIndexFeatures, getRandomPositiveFloat(0, features.length - 1));
   return (featuresCopy);
 };
 
@@ -87,7 +87,7 @@ const getNewArrayPhotos = () => {
   const photosCopy = photos.slice();
   shuffle(photosCopy);
   const randomIndexPhotos = getRandomPositiveInteger(0, photosCopy.length - 1);
-  photosCopy.splice(randomIndexPhotos, getRandomPositiveFloat(0, photos.length-1));
+  photosCopy.splice(randomIndexPhotos, getRandomPositiveFloat(0, photos.length - 1));
   return (photosCopy);
 };
 
@@ -105,7 +105,6 @@ const avatarsImg = Array.from({
 });
 
 const generateAdvertisement = () => {
-
   const randomIndex = getRandomPositiveInteger(0, avatarsImg.length - 1);
   const [avatar] = avatarsImg.splice(randomIndex, 1);
 
