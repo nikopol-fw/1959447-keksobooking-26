@@ -5,7 +5,7 @@
  * @param {number} digits - количество знаков после запятой;
  * @returns {number}
  **/
-function getRandomPositiveFloat(a, b, digits = 1) {
+const getRandomPositiveFloat = (a, b, digits = 1) => {
   const lower = Math.min(Math.abs(a), Math.abs(b));
   const upper = Math.max(Math.abs(a), Math.abs(b));
   const result = Math.random() * (upper - lower) + lower;
@@ -53,7 +53,7 @@ const maxGuests = 6;
  * источник - https://habr.com/ru/post/358094/
  * @param {number} j - выбор случайного элемента
  */
-function shuffle(featuresCopy) {
+const shuffle = (featuresCopy) => {
   let j, temp;
   //перебираем массив с последнего элемента
   for (let i = featuresCopy.length - 1; i > 0; i--) {
@@ -65,7 +65,7 @@ function shuffle(featuresCopy) {
     featuresCopy[i] = temp;
   }
   return featuresCopy;
-}
+};
 
 /**
  * Функция создает копию массива features с другим количеством и порядком элементов
