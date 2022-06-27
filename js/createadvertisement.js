@@ -31,7 +31,7 @@ import {
 } from './data.js';
 
 
-const generateAdvertisement = () => {
+export const generateAdvertisement = () => {
   const randomIndex = getRandomPositiveInteger(0, avatarsImg.length - 1);
   const [avatar] = avatarsImg.splice(randomIndex, 1);
 
@@ -69,6 +69,8 @@ const generateAdvertisement = () => {
  * Создание массива объявленной длины
  *  Источник https://up.htmlacademy.ru/profession/frontender/13/javascript/26/demos/7619#12
  */
-export const similarAdvertisement = Array.from({
-  length: 10
+const advertisementCount = 10;
+
+export const similarAdvertisement = () => Array.from({
+  length: advertisementCount
 }, generateAdvertisement);
