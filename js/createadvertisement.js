@@ -74,3 +74,4 @@ const advertisementCount = 10;
 export const similarAdvertisement = () => Array.from({
   length: advertisementCount
 }, generateAdvertisement);
+
