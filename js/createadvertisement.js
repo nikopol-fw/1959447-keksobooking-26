@@ -69,7 +69,7 @@ export const generateAdvertisement = () => {
  * Создание массива объявленной длины
  *  Источник https://up.htmlacademy.ru/profession/frontender/13/javascript/26/demos/7619#12
  */
-const advertisementCount = 10;
+const advertisementCount = 1;
 
 export const similarAdvertisement = () => Array.from({
   length: advertisementCount
