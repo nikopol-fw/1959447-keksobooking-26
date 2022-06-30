@@ -2,17 +2,15 @@ import {
   generateArrayAdvertisments
 } from './data.js';
 
-
 import {
   mapElement
 } from './map.js';
 
-//вызываем функцию генерации данных
-const advertisments = generateArrayAdvertisments(1);
+/** Массив объявлений */
+const advertisments = generateArrayAdvertisments(10);
 
 // шаблон #card, забираем то что будем копировать
 const popupTemplate = document.querySelector('#card').content.querySelector('.popup');
-const cardElement = popupTemplate.cloneNode(true);
 
 const typeHabitation = {
   flat: 'Квартира',
@@ -22,45 +20,43 @@ const typeHabitation = {
   hotel: 'Отель'
 };
 
-advertisments.forEach((advertisement) => {
+/* Создание карточки объявлений */
+const createCardElement = (paramAdvertisement) => {
 
-  //вставляем данные
-  const title = cardElement.querySelector('.popup__title');
-  title.textContent = advertisement.offer.title;
+  const cardElement = popupTemplate.cloneNode(true);
 
-  const address = cardElement.querySelector('.popup__text--address');
-  address.textContent = advertisement.offer.address;
+  const titleElement = cardElement.querySelector('.popup__title');
+  const addressElement = cardElement.querySelector('.popup__text--address');
+  const priceElement = cardElement.querySelector('.popup__text--price');
+  const typeElement = cardElement.querySelector('.popup__type');
+  const roomsGuestsElement = cardElement.querySelector('.popup__text--capacity');
+  const checkinOutElement = cardElement.querySelector('.popup__text--time');
+  const descriptionElement = cardElement.querySelector('.popup__description');
+  const avatarElement = cardElement.querySelector('.popup__avatar');
 
-  const price = cardElement.querySelector('.popup__text--price');
-  price.textContent = `${advertisement.offer.price} ₽/ночь`;
+  titleElement.textContent = paramAdvertisement.offer.title;
+  addressElement.textContent = paramAdvertisement.offer.address;
+  priceElement.textContent = `${paramAdvertisement.offer.price} ₽/ночь`;
+  typeElement.textContent = typeHabitation[paramAdvertisement.offer.type];
+  roomsGuestsElement.textContent = `${paramAdvertisement.offer.rooms} комнаты для ${paramAdvertisement.offer.guests} гостей`;
+  checkinOutElement.textContent = `Заезд после ${paramAdvertisement.offer.checkin}, выезд до ${paramAdvertisement.offer.checkout}`;
+  descriptionElement.textContent = paramAdvertisement.offer.description;
+  avatarElement.src = paramAdvertisement.author.avatar;
 
-  const type = cardElement.querySelector('.popup__type');
-  type.textContent = typeHabitation[advertisement.offer.type];
-
-  const roomsGuests = cardElement.querySelector('.popup__text--capacity');
-  roomsGuests.textContent = `${advertisement.offer.rooms} комнаты для ${advertisement.offer.guests} гостей`;
-
-  //Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, «Заезд после 14:00, выезд до 14:00».
-  const checkinOut = cardElement.querySelector('.popup__text--time');
-  checkinOut.textContent = `Заезд после ${advertisement.offer.checkin}, выезд до ${advertisement.offer.checkout}`;
-
-  const features = advertisement.offer.features;
+  const features = paramAdvertisement.offer.features;
   const featuresContainer = cardElement.querySelector('.popup__features');
   const featureList = featuresContainer.querySelectorAll('.popup__feature');
 
   featureList.forEach((item) => {
     const isRight = features.some(
-      (feature) => item.classList.contains(`popup__feature--${feature}`)
+      (feature) => item.classList.add(`popup__feature--${feature}`)
     );
     if (!isRight) {
       item.remove();
     }
   });
 
-  const description = cardElement.querySelector('.popup__description');
-  description.textContent = advertisement.offer.description;
-
-  const photoSrc = advertisement.offer.photos;
+  const photoSrc = paramAdvertisement.offer.photos;
   const photosContainer = cardElement.querySelector('.popup__photos');
   const photo = photosContainer.querySelector('.popup__photo');
 
@@ -74,9 +70,15 @@ advertisments.forEach((advertisement) => {
     }
   });
 
-  const avatar = cardElement.querySelector('.popup__avatar');
-  avatar.src = advertisement.author.avatar;
-});
+  return cardElement;
+};
 
-//отрисовать на карте
-mapElement.appendChild(cardElement);
+
+const cardElements = advertisments.map(createCardElement);
+
+/* отрисовать на карте 1 карточку */
+const renderCard = (paramElements) => {
+  mapElement.appendChild(paramElements);
+};
+
+renderCard(cardElements[2]);
