@@ -11,8 +11,6 @@ export {makesDisabledForm};
 // к элементам добавляется модификатор --disabled
 
 
-
-
 // const formElements = document.querySelector('.ad-form');
 // for (let i = 0; i < formElements.childNodes.length; i++) {
 //   formElements.childNodes[i].setAttribute('disabled');
