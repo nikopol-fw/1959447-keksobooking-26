@@ -6,7 +6,7 @@ const typeHabitation = {
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
-  hotel: 'Отель'
+  hotel: 'Отель',
 };
 
 // шаблон #card, забираем то что будем копировать
@@ -42,8 +42,7 @@ const createCardElement = (paramAdvertisement) => {
 
   const featuresContainer = cardElement.querySelector('.popup__features');
   const featureList = featuresContainer.querySelectorAll('.popup__feature');
-  const modifiers = paramAdvertisement.offer.features.map( (feature) => `popup__feature--${feature}` );
-
+  const modifiers = paramAdvertisement.offer.features.map((feature) => `popup__feature--${feature}`);
   featureList.forEach((featureListItem, i) => {
     if (!featureListItem.classList.contains(modifiers[i])) {
       featureListItem.remove();
