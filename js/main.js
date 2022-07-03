@@ -16,6 +16,7 @@ const advertisments = generateArrayAdvertisments(5);
 
 /** Создание карточки */
 const cardElements = advertisments.map(createCardElement);
+console.log(cardElements);
 
 /** Отрисовать на карте 1 карточку */
 renderCard(cardElements[1]);
