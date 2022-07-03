@@ -1,6 +1,23 @@
 import {
-  similarAdvertisement
-} from './create-advertisement.js';
+  generateArrayAdvertisments
+} from './data.js';
 
-// eslint-disable-next-line no-console
-console.log(similarAdvertisement);
+import {
+  createCardElement,
+  renderCard
+} from './map.js';
+
+import {
+  makesDisabledForm
+} from './form.js';
+
+/** Массив объявлений */
+const advertisments = generateArrayAdvertisments(5);
+
+/** Создание карточки */
+const cardElements = advertisments.map(createCardElement);
+
+/** Отрисовать на карте 1 карточку */
+renderCard(cardElements[1]);
+
+makesDisabledForm();
