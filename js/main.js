@@ -1,6 +1,6 @@
 import { generateArrayAdvertisments } from './data.js';
 import { createCardElement, renderCard } from './map.js';
-import { makesDisabledForm } from './form.js';
+import {disableForm, disableMapFilters} from './form.js';
 
 
 /** Массив объявлений */
@@ -12,4 +12,6 @@ const cardElements = advertisments.map(createCardElement);
 /** Отрисовать на карте 1 карточку */
 renderCard(cardElements[0]);
 
-makesDisabledForm();
+/**При открытии страница находится в неактивном состоянии */
+disableForm();
+disableMapFilters();

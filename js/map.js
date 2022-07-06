@@ -42,6 +42,7 @@ const createCardElement = (paramAdvertisement) => {
   avatarElement.src = paramAdvertisement.author.avatar;
 
   const featuresContainerElement = cardElement.querySelector('.popup__features');
+  // console.log(featuresContainerElement);
   if (paramAdvertisement.offer.features.lenght === 0) {
     featuresContainerElement.remove();
   } else {
@@ -60,6 +61,7 @@ const createCardElement = (paramAdvertisement) => {
   if (paramAdvertisement.offer.photos.lenght === 0) {
     photosContainerElement.remove();
   } else {
+    //
     const photoElement = cardElement.querySelector('.popup__photo');
     const photoFragment = document.createDocumentFragment();
     paramAdvertisement.offer.photos.forEach ((photoSrc) => {
@@ -67,7 +69,7 @@ const createCardElement = (paramAdvertisement) => {
       photoItem.src = photoSrc;
       photoFragment.appendChild(photoItem);
     });
-    photoElement.remove();
+    photosContainerElement.innerHTML = '';
     photosContainerElement.appendChild(photoFragment);
   }
   return cardElement;
