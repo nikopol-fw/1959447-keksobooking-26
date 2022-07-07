@@ -1,6 +1,7 @@
 import { generateArrayAdvertisments } from './data.js';
 import { createCardElement, renderCard } from './map.js';
 // import {disableForm, disableMapFilters} from './form.js';
+import {pristine} from './form-validation.js';
 
 
 /** Массив объявлений */
@@ -16,3 +17,4 @@ renderCard(cardElements[0]);
 // disableForm();
 // disableMapFilters();
 
+pristine();
