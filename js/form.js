@@ -1,8 +1,7 @@
-// new Pristine(form);
-
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
 
+// TODO Слайдер также должен быть заблокирован - он в fieldset. Дополнительная блокирвока по классу ad-form__slider не сделана.
 /** Перевод формы в неактивное состояние */
 const disableForm = () => {
   formElement.classList.add('ad-form--disabled');
@@ -43,3 +42,4 @@ const enableMapFilters = () => {
 };
 
 export {disableForm, disableMapFilters};
+
