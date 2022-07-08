@@ -1,23 +1,20 @@
-import {
-  generateArrayAdvertisments
-} from './data.js';
+import { generateArrayAdvertisments } from './data.js';
+import { createCardElement, renderCard } from './map.js';
+// import {disableForm, disableMapFilters} from './form.js';
+import {pristine} from './form-validation.js';
 
-import {
-  createCardElement,
-  renderCard
-} from './map.js';
-
-import {
-  makesDisabledForm
-} from './form.js';
 
 /** Массив объявлений */
-const advertisments = generateArrayAdvertisments(5);
+const advertisments = generateArrayAdvertisments(10);
 
 /** Создание карточки */
 const cardElements = advertisments.map(createCardElement);
 
 /** Отрисовать на карте 1 карточку */
-renderCard(cardElements[1]);
+renderCard(cardElements[0]);
 
-makesDisabledForm();
+/**При открытии страница находится в неактивном состоянии */
+// disableForm();
+// disableMapFilters();
+
+pristine();
