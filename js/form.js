@@ -5,9 +5,9 @@ const fieldsetElements = formElement.querySelectorAll('fieldset');
 /** Перевод формы в неактивное состояние */
 const disableForm = () => {
   formElement.classList.add('ad-form--disabled');
-  for (const fieldElement of fieldsetElements) {
+  fieldsetElements.forEach((fieldElement) => {
     fieldElement.disabled = true;
-  }
+  });
 };
 
 /** Перевод формы в активное состояние */
@@ -15,31 +15,10 @@ const disableForm = () => {
 // eslint-disable-next-line no-unused-vars
 const enableForm = () => {
   formElement.classList.remove('ad-form--disabled');
-  for (const fieldElement of fieldsetElements) {
+  fieldsetElements.forEach((fieldElement) => {
     fieldElement.disabled = false;
-  }
+  });
 };
 
-/** Блокировка формы с фильтрами */
-const filterElement = document.querySelector('.map__filters');
-const selectElements = filterElement.querySelectorAll('select');
-
-const disableMapFilters = () => {
-  filterElement.classList.add('map__filters--disabled');
-  for (const selectElement of selectElements) {
-    selectElement.disabled = true;
-  }
-};
-
-/** Разблокировка формы с фильтрами */
-// TODO временное отключение проверки
-// eslint-disable-next-line no-unused-vars
-const enableMapFilters = () => {
-  filterElement.classList.remove('map__filters--disabled');
-  for (const selectElement of selectElements) {
-    selectElement.disabled = false;
-  }
-};
-
-export {disableForm, disableMapFilters};
+export {disableForm};
 
