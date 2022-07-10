@@ -16,7 +16,6 @@ const validatePrice = (value) => value >= 0 && value <= '100000';
 pristine.addValidator(formElement.querySelector('#price'), validatePrice, 'Максимальное значение 100 000');
 
 
-// TODO проверка при отправке. Нужна проверка при заполнении.
 const validateRoomNumber = function(value) {
   const capacityValue = formElement.querySelector('#capacity').value;
 
@@ -33,17 +32,46 @@ const validateRoomNumber = function(value) {
 
 const getRoomNumberErrorMessage = function(value) {
   if(value === '1') {
-    return 'для 1 гостя';
+    return 'Для 1 гостя';
   } else if(value === '2') {
     return 'Возможно не более 2х гостей';
   } else if(value === '3') {
-    return 'Возможно не более 3 гостей';
+    return 'Возможно не более 3х гостей';
   } else if(value === '100') {
     return 'Не для гостей';
   }
 };
-
+// todo если значние становится верным, надпись об ошибке остается
 pristine.addValidator(formElement.querySelector('#room_number'), validateRoomNumber, getRoomNumberErrorMessage);
+
+
+const validateType = (value) => {
+  const price = formElement.querySelector('#price');
+
+  if(value === 'bungalow') {
+    price.placeholder = 0;
+    price.min = 0;
+    return true;
+  } else if(value === 'flat') {
+    price.placeholder = 1000;
+    price.min = 1000;
+    return true;
+  } else if(value === 'hotel') {
+    price.placeholder = 3000;
+    price.min = 3000;
+    return true;
+  } else if(value === 'house') {
+    price.placeholder = 5000;
+    price.min = 5000;
+    return true;
+  } else if(value === 'palace') {
+    price.placeholder = 10000;
+    price.min = 10000;
+    return true;
+  }
+};
+
+pristine.addValidator(formElement.querySelector('#type'), validateType);
 
 formElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
