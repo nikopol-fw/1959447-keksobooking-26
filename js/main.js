@@ -1,18 +1,14 @@
 import { generateArrayAdvertisments } from './data.js';
-import { createCardElement, renderCard } from './map.js';
 import {disableMapFilters} from './filter-form.js';
-//TODO
 import './form-validation.js';
 
-
 /** Массив объявлений */
+// eslint-disable-next-line no-unused-vars
 const advertisments = generateArrayAdvertisments(10);
 
 /** Создание карточки */
-const cardElements = advertisments.map(createCardElement);
-
-/** Отрисовать на карте 1 карточку */
-renderCard(cardElements[0]);
+// eslint-disable-next-line no-unused-vars
+// const cardElements = advertisments.map(createCardElement);
 
 /**При открытии страница находится в неактивном состоянии */
 // disableForm();
@@ -20,3 +16,20 @@ renderCard(cardElements[0]);
 
 //Блокировка формы с фильтрами
 disableMapFilters();
+
+
+const map = L.map('map-canvas')
+  .on('load', () => {
+    console.log('Карта инициализирована');
+  })
+  .setView({
+    lat: 35.68952,
+    lng: 139.69199,
+  }, 13);
+
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(map);
