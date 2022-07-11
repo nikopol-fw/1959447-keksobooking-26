@@ -1,10 +1,10 @@
-import { generateArrayAdvertisments } from './data.js';
-// import {disableMapFilters} from './filter-form.js';
-import './form-validation.js';
+// import { generateArrayAdvertisments } from './data.js';
+// // import {disableMapFilters} from './filter-form.js';
+// import './form-validation.js';
 
 /** Массив объявлений */
 // eslint-disable-next-line no-unused-vars
-const advertisments = generateArrayAdvertisments(10);
+// const advertisments = generateArrayAdvertisments(10);
 
 /** Создание карточки */
 // eslint-disable-next-line no-unused-vars
@@ -19,10 +19,6 @@ const advertisments = generateArrayAdvertisments(10);
 
 
 const map = L.map('map-canvas')
-  .on('load', () => {
-  // eslint-disable-next-line no-console
-    console.log('Карта инициализирована');
-  })
   .setView({
     lat: 35.68952,
     lng: 139.69199,
