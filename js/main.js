@@ -1,5 +1,5 @@
 import { generateArrayAdvertisments } from './data.js';
-import {disableMapFilters} from './filter-form.js';
+// import {disableMapFilters} from './filter-form.js';
 import './form-validation.js';
 
 /** Массив объявлений */
@@ -15,17 +15,18 @@ const advertisments = generateArrayAdvertisments(10);
 // disableMapFilters();
 
 //Блокировка формы с фильтрами
-disableMapFilters();
+// disableMapFilters();
 
 
 const map = L.map('map-canvas')
   .on('load', () => {
+  // eslint-disable-next-line no-console
     console.log('Карта инициализирована');
   })
   .setView({
     lat: 35.68952,
     lng: 139.69199,
-  }, 13);
+  }, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
