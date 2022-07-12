@@ -16,7 +16,7 @@ const validatePrice = (value) => value >= 0 && value <= '100000';
 pristine.addValidator(formElement.querySelector('#price'), validatePrice, 'Максимальное значение 100 000');
 
 
-const validateRoomNumber = function(value) {
+const validateRoomNumber = (value) => {
   const capacityValue = formElement.querySelector('#capacity').value;
 
   if(value === '1') {
@@ -30,7 +30,7 @@ const validateRoomNumber = function(value) {
   }
 };
 
-const getRoomNumberErrorMessage = function(value) {
+const getRoomNumberErrorMessage = (value) => {
   if(value === '1') {
     return 'Для 1 гостя';
   } else if(value === '2') {

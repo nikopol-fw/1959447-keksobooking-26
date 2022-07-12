@@ -56,21 +56,26 @@ pinMarkerElement.on('moveend', (evt) => {
   formElement.querySelector('#address').value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 });
 
-const createMarker = (point) => {
-  const {lat, lng} = point.location;
+/** Создание метки и прикрепление объявления к ней */
+const createMarker = (paramPoint) => {
+  const {lat, lng} = paramPoint.location;
   const marker = L.marker({
     lat,
     lng,
   }, {
     pinIconElement
   });
-  marker.addTo(markerGroup).bindPopup(createCardElement(point));
+  marker.addTo(markerGroup).bindPopup(createCardElement(paramPoint));
 };
 
-const addPoints = (data) => {
-  data.forEach((point) => {
-    createMarker(point);
+const addPoints = (paramData) => {
+  paramData.forEach((paramPoint) => {
+    createMarker(paramPoint);
   });
 };
+// todo не подтягивается специальная метка, к главной нет объявления.
 
-export {addPoints};
+//не подключено
+markerGroup.clearLayers();
+
+export {addPoints, markerGroup};

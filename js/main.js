@@ -1,5 +1,5 @@
 import { generateArrayAdvertisments } from './data.js';
-import {disableForm} from './form.js';
+// import {disableForm} from './form.js';
 import './form-validation.js';
 import {addPoints} from './map.js';
 
@@ -13,6 +13,6 @@ const advertisments = generateArrayAdvertisments(10);
 // const cardElements = advertisments.map(createCardElement);
 
 /**При открытии страница находится в неактивном состоянии */
-disableForm();
+// disableForm();
 
 addPoints(advertisments);
