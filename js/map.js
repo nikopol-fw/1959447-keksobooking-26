@@ -1,26 +1,9 @@
-import {disableForm, enableForm} from './form.js';
+// import {enableForm} from './form.js';
 import {createCardElement} from './cards.js';
 
 const formElement = document.querySelector('.ad-form');
-
-disableForm();
-
-// Отрисована карта, страница активна
-const map = L.map('map-canvas')
-  .on('load', () => {
-    enableForm();
-  })
-  .setView({
-    lat: 35.68952,
-    lng: 139.69199,
-  }, 10);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+const map = L.map('map-canvas');
+const markerGroup = L.layerGroup().addTo(map);
 
 // Отрисована метка
 const pinIconElement = L.icon({
@@ -36,12 +19,10 @@ const pinIconSimilarElement = L.icon({
   iconAnchor: [20, 40],
 });
 
-const markerGroup = L.layerGroup().addTo(map);
-
 const pinMarkerElement = L.marker(
   {
-    lat: 35.68952,
-    lng: 139.69199,
+    lat: 0,
+    lng: 0,
   },
   {
     draggable: true,
@@ -49,7 +30,17 @@ const pinMarkerElement = L.marker(
   },
 );
 
-pinMarkerElement.addTo(map);
+/** Отрисовка карты */
+const initMap = (coordinate) => {
+  map.setView(coordinate, 10);
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+  pinMarkerElement.setLatLng(coordinate).addTo(map);
+};
 
 pinMarkerElement.on('moveend', (evt) => {
   const {lat, lng} = evt.target.getLatLng();
@@ -73,9 +64,8 @@ const addPoints = (paramData) => {
     createMarker(paramPoint);
   });
 };
-// todo не подтягивается специальная метка, к главной нет объявления.
 
 //не подключено
 markerGroup.clearLayers();
 
-export {addPoints, markerGroup};
+export {initMap, addPoints, markerGroup};
