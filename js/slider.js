@@ -1,9 +1,9 @@
 /** Создание слайдера
- * @param {} item - элемент в котором отрисовывается слайдер
- * @param {} input поле ввода значения
+ * @param {} paramElement - элемент в котором отрисовывается слайдер
+ * @param {} paramInput поле ввода значения
  */
-const createSlider = (item, input)  => {
-  noUiSlider.create(item, {
+const createSlider = (paramElement, paramInput)  => {
+  noUiSlider.create(paramElement, {
     range: {
       min: 0,
       max: 100000,
@@ -23,8 +23,8 @@ const createSlider = (item, input)  => {
       },
     },
   });
-  item.noUiSlider.on('update', () => {
-    input.value = item.noUiSlider.get();
+  paramElement.noUiSlider.on('update', () => {
+    paramInput.value = paramElement.noUiSlider.get();
   });
 };
 
