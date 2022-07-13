@@ -1,7 +1,11 @@
 import { generateArrayAdvertisments } from './data.js';
-// import {disableForm} from './form.js';
+import {disableForm} from './form.js';
 import './form-validation.js';
 import {initMap, addPoints} from './map.js';
+import { createSlider } from './slider.js';
+
+const sliderElement = document.querySelector('.ad-form__slider');
+const valueElement = document.querySelector('.ad-form__value');
 
 
 /** Массив объявлений */
@@ -13,25 +17,19 @@ const advertisments = generateArrayAdvertisments(10);
 // const cardElements = advertisments.map(createCardElement);
 
 /**При открытии страница находится в неактивном состоянии */
-// disableForm();
+disableForm();
 
 initMap([35.68952, 139.69199]);
 
 addPoints(advertisments);
 
-const sliderElement = document.querySelector('.ad-form__slider');
-noUiSlider.create(sliderElement, {
-  range: {
-    min: 0,
-    max: 100000,
-  },
-  start:50000,
-  step: 1,
-  connect: 'lower',
-});
+createSlider(sliderElement, valueElement);
 
-sliderElement.noUiSlider.on('slice', (...rest) => {
-// eslint-disable-next-line no-console
-  console.log(rest);
+//обновление значения слайдера
+valueElement.addEventListener('input', () => {
+  sliderElement.noUiSlider.updateOptions(
+    {
+      start: `${valueElement.value}`
+    }
+  );
 });
-
