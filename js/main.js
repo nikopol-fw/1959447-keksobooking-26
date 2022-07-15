@@ -1,35 +1,25 @@
-import { generateArrayAdvertisments } from './data.js';
+// import { generateArrayAdvertisments } from './data.js';
 import {disableForm} from './form.js';
 import './form-validation.js';
-import {initMap, addPoints} from './map.js';
-import { createSlider } from './slider.js';
-
-const sliderElement = document.querySelector('.ad-form__slider');
-const valueElement = document.querySelector('.ad-form__value');
-
+// import {initMap, addPoints} from './map.js';
+// import {COORDINATE_MAP, COUNT_MAP_ZOOM} from './setting.js';
 
 /** Массив объявлений */
 // eslint-disable-next-line no-unused-vars
-const advertisments = generateArrayAdvertisments(10);
-
-/** Создание карточки */
-// eslint-disable-next-line no-unused-vars
-// const cardElements = advertisments.map(createCardElement);
+// const advertisments = generateArrayAdvertisments(10);
 
 /**При открытии страница находится в неактивном состоянии */
 disableForm();
 
-initMap([35.68952, 139.69199]);
+// отрисовка карты
+// initMap(COORDINATE_MAP, COUNT_MAP_ZOOM);
 
-addPoints(advertisments);
+// создание меток объявлений на карте
+// addPoints(advertisments);
 
-createSlider(sliderElement, valueElement);
-
-//обновление значения слайдера
-valueElement.addEventListener('input', () => {
-  sliderElement.noUiSlider.updateOptions(
-    {
-      start: `${valueElement.value}`
-    }
-  );
-});
+fetch('https://26.javascript.pages.academy/keksobooking/data')
+  .then((response) => response.json())
+  .then((advertisments) => {
+    // eslint-disable-next-line no-console
+    console.log(advertisments);
+  });

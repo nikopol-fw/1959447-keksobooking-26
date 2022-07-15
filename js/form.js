@@ -1,5 +1,11 @@
+import { createSlider } from './slider.js';
+
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
+
+const sliderElement = document.querySelector('.ad-form__slider');
+const valueElement = document.querySelector('.ad-form__value');
+
 
 // TODO Слайдер также должен быть заблокирован - он в fieldset. Дополнительная блокирвока по классу ad-form__slider не сделана.
 /** Перевод формы в неактивное состояние */
@@ -11,8 +17,6 @@ const disableForm = () => {
 };
 
 /** Перевод формы в активное состояние */
-// TODO временное отключение проверки
-// eslint-disable-next-line no-unused-vars
 const enableForm = () => {
   formElement.classList.remove('ad-form--disabled');
   fieldsetElements.forEach((fieldElement) => {
@@ -20,5 +24,13 @@ const enableForm = () => {
   });
 };
 
-export {disableForm, enableForm};
+//создание слайдера
+createSlider(sliderElement, valueElement);
+
+//объединит все действия с формой: слайдер, валидация
+const initForm = () => {
+
+};
+
+export {disableForm, enableForm, initForm};
 

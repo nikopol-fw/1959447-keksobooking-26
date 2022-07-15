@@ -1,4 +1,3 @@
-// import {enableForm} from './form.js';
 import {createCardElement} from './cards.js';
 import { enableForm } from './form.js';
 
@@ -31,12 +30,15 @@ const pinMarkerElement = L.marker(
   },
 );
 
-/** Отрисовка карты */
-const initMap = (coordinate) => {
+/** Отрисовка карты
+ * @param {object} coordinate geographical coordinates
+ * @param {Number} count  zoom level
+ */
+const initMap = (coordinate, count) => {
   map.on('load', () => {
     enableForm();
   });
-  map.setView(coordinate, 10);
+  map.setView(coordinate, count);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {

@@ -42,10 +42,12 @@ const getRoomNumberErrorMessage = (value) => {
     return 'Не для гостей';
   }
 };
+
 // todo если значние становится верным, надпись об ошибке остается
 pristine.addValidator(formElement.querySelector('#room_number'), validateRoomNumber, getRoomNumberErrorMessage);
 
 
+//todo здесь косяк валидации
 const validateType = (value) => {
   const price = formElement.querySelector('#price');
 
@@ -106,5 +108,13 @@ pristine.addValidator(formElement.querySelector('#type'), validateType);
 
 formElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  // pristine.validate();
+  const isValid = pristine.validate();
+  if (isValid) {
+    // eslint-disable-next-line no-console
+    console.log('Можно отправлять');
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Форма невалидна');
+  }
 });
