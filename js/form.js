@@ -1,10 +1,12 @@
-import { createSlider } from './slider.js';
+import {createSlider} from './slider.js';
 
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
-
 const sliderElement = document.querySelector('.ad-form__slider');
 const valueElement = document.querySelector('.ad-form__value');
+
+//создание слайдера
+createSlider(sliderElement, valueElement);
 
 
 // TODO Слайдер также должен быть заблокирован - он в fieldset. Дополнительная блокирвока по классу ad-form__slider не сделана.
@@ -23,9 +25,6 @@ const enableForm = () => {
     fieldElement.disabled = false;
   });
 };
-
-//создание слайдера
-createSlider(sliderElement, valueElement);
 
 //объединит все действия с формой: слайдер, валидация
 const initForm = () => {
