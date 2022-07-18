@@ -28,23 +28,18 @@ const createSlider = (paramElement, paramInput)  => {
   paramElement.noUiSlider.on('update', () => {
     paramInput.value = paramElement.noUiSlider.get();
   });
-
-  // TODO ************************************ Nikolay
-  // paramElement.setAttribute('disabled', true);
-  // ************************************
 };
 
-// TODO ************************************ Nikolay
-// const disableSlider = () => {
+const disableSlider = (paramElement) => {
+  paramElement.setAttribute('disabled', true);
+  const origins = paramElement.querySelectorAll('.noUi-origin');
+  origins[0].setAttribute('disabled', true);
+};
 
-// };
+const enableSlider = (paramElement) => {
+  paramElement.removeAttribute('disabled');
+  const origins = paramElement.querySelectorAll('.noUi-origin');
+  origins[0].removeAttribute('disabled', true);
+};
 
-// const changeSliderRange = () => {
-
-// };
-// ************************************
-
-//валидация слайдер
-
-
-export {createSlider};
+export {createSlider, enableSlider, disableSlider};

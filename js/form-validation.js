@@ -11,6 +11,7 @@ const typeElement = formElement.querySelector('#type');
 const timeParentElement = formElement.querySelector('.ad-form__element--time');
 const timeInElement = formElement.querySelector('#timein');
 const timeOutElement = formElement.querySelector('#timeout');
+const addressElement = document.querySelector('#address');
 
 const pristine = new Pristine(formElement, {
   classTo: 'ad-form__element',
@@ -117,12 +118,15 @@ const validateType = (value) => {
 
 pristine.addValidator(typeElement, validateType);
 
+
 /**Синхронизация «Время заезда», «Время выезда». */
 timeParentElement.addEventListener('change', (evt) => {
   timeInElement.value = evt.target.value;
   timeOutElement.value = evt.target.value;
 });
 
+// Запрет ручного редактирования поля Адрес(координаты)
+addressElement.readonly = true;
 
 // Если при отправке данных произошла ошибка запроса,
 // показывается соответствующее сообщение. Разметку сообщения,

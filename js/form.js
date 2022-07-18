@@ -1,25 +1,37 @@
-import {createSlider} from './slider.js';
+import {createSlider, disableSlider, enableSlider} from './slider.js';
 
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
+const formFilterElement = document.querySelector('.map__filters ');
+const fildsetFilterElements = formFilterElement.querySelectorAll('select, input');
 const sliderElement = document.querySelector('.ad-form__slider');
 const valueElement = document.querySelector('.ad-form__value');
 
 //создание слайдера
 createSlider(sliderElement, valueElement);
 
-
-// TODO Слайдер также должен быть заблокирован - он в fieldset. Дополнительная блокирвока по классу ad-form__slider не сделана.
-/** Перевод формы в неактивное состояние */
-const disableForm = () => {
-  formElement.classList.add('ad-form--disabled');
-  fieldsetElements.forEach((fieldElement) => {
-    fieldElement.disabled = true;
+//Состояния страницы
+const disableElement = (form, fields) => {
+  form.classList.add(`${form.className}--disabled`);
+  fields.forEach((fild) => {
+    fild.disabled = true;
   });
-  // Блокировать слайдер
 };
 
-/** Перевод формы в активное состояние */
+/** Приводит страницу в неактивное состояние */
+const disableStatePage = () => {
+  disableElement (formElement,fieldsetElements);
+  disableElement (formFilterElement, fildsetFilterElements);
+  disableSlider(sliderElement);
+};
+
+//todo есть дублирование кода. Не понятно как писать - classList.remove('.....-form--disabled')
+const enableFilterForm = () => {
+  formFilterElement.classList.remove('map__filters--disabled');
+  fildsetFilterElements.forEach((fildsetFilterElement) => {
+    fildsetFilterElement.disabled = false;
+  });
+};
 const enableForm = () => {
   formElement.classList.remove('ad-form--disabled');
   fieldsetElements.forEach((fieldElement) => {
@@ -27,10 +39,18 @@ const enableForm = () => {
   });
 };
 
+/** Приводит страницу в активное состояние */
+const enableStatePage = () => {
+  enableForm();
+  enableFilterForm();
+  enableSlider(sliderElement);
+};
+
+
 //объединит все действия с формой: слайдер, валидация
 const initForm = () => {
 
 };
 
-export {disableForm, enableForm, initForm};
+export {disableStatePage, enableStatePage, initForm};
 
