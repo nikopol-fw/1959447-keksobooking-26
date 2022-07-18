@@ -1,10 +1,16 @@
 import {sendData} from './api.js';
+import {MAX_PRICE} from './setting.js';
 
 const formElement = document.querySelector('.ad-form');
 const sliderElement = document.querySelector('.ad-form__slider');
-
-
-// import { getData} from './api.js';
+const titleElement = formElement.querySelector('#title');
+const roomNumberElement = formElement.querySelector('#room_number');
+const capacityElement = formElement.querySelector('#capacity');
+const priceElement = formElement.querySelector('#price');
+const typeElement = formElement.querySelector('#type');
+const timeParentElement = formElement.querySelector('.ad-form__element--time');
+const timeInElement = formElement.querySelector('#timein');
+const timeOutElement = formElement.querySelector('#timeout');
 
 const pristine = new Pristine(formElement, {
   classTo: 'ad-form__element',
@@ -16,14 +22,14 @@ const pristine = new Pristine(formElement, {
 });
 
 const validateTitle = (value) => value.length >= 30 && value.length <= 100;
-pristine.addValidator(formElement.querySelector('#title'), validateTitle, 'Заголовок не менее 30 и не более 100 символов');
+pristine.addValidator(titleElement, validateTitle, 'Заголовок не менее 30 и не более 100 символов');
 
-const validatePrice = (value) => value >= 0 && value <= 100000;
-pristine.addValidator(formElement.querySelector('#price'), validatePrice, 'Максимальное значение 100 000');
+const validatePrice = (value) => value >= 0 && value <= MAX_PRICE;
+pristine.addValidator(priceElement, validatePrice, `Максимальное значение ${MAX_PRICE}`);
 
 
 const validateRoomNumber = (value) => {
-  const capacityValue = formElement.querySelector('#capacity').value;
+  const capacityValue = capacityElement.value;
 
   if(value === '1') {
     return capacityValue === '1';
@@ -48,11 +54,13 @@ const getRoomNumberErrorMessage = (value) => {
   }
 };
 
-// todo если значние становится верным, надпись об ошибке остается
-pristine.addValidator(formElement.querySelector('#room_number'), validateRoomNumber, getRoomNumberErrorMessage);
+pristine.addValidator(roomNumberElement, validateRoomNumber, getRoomNumberErrorMessage);
+capacityElement.addEventListener('change', () => {
+  pristine.validate(roomNumberElement);
+});
 
 const validateType = (value) => {
-  const price = formElement.querySelector('#price');
+  const price = priceElement;
 
   if(value === 'bungalow') {
     price.placeholder = 0;
@@ -60,7 +68,7 @@ const validateType = (value) => {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: 0,
-        max: 100000,
+        max: MAX_PRICE,
       }
     });
     return true;
@@ -70,7 +78,7 @@ const validateType = (value) => {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: 1000,
-        max: 100000,
+        max: MAX_PRICE,
       }
     });
     return true;
@@ -80,7 +88,7 @@ const validateType = (value) => {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: 3000,
-        max: 100000,
+        max: MAX_PRICE,
       }
     });
     return true;
@@ -90,7 +98,7 @@ const validateType = (value) => {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: 5000,
-        max: 100000,
+        max: MAX_PRICE,
       }
     });
     return true;
@@ -100,14 +108,21 @@ const validateType = (value) => {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: 10000,
-        max: 100000,
+        max: MAX_PRICE,
       }
     });
     return true;
   }
 };
 
-pristine.addValidator(formElement.querySelector('#type'), validateType);
+pristine.addValidator(typeElement, validateType);
+
+/**Синхронизация «Время заезда», «Время выезда». */
+timeParentElement.addEventListener('change', (evt) => {
+  timeInElement.value = evt.target.value;
+  timeOutElement.value = evt.target.value;
+});
+
 
 // Если при отправке данных произошла ошибка запроса,
 // показывается соответствующее сообщение. Разметку сообщения,
@@ -119,14 +134,15 @@ pristine.addValidator(formElement.querySelector('#type'), validateType);
 // В таком случае вся введённая пользователем информация
 // сохраняется, чтобы у него была возможность отправить форму повторно.
 
-// const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
 /**Создает сообщение об успешно отправленной форме */
-// const displayMessageSuccess = () => {
-//   const successMessageElement = successTemplate.cloneNode(true);
-//   document.appendChild(successMessageElement);
-// };
+// todo не закрывается + timeOut
+const displayMessageSuccess = () => {
+  const successMessageElement = successTemplate.cloneNode(true);
+  document.appendChild(successMessageElement);
+};
 
 
 /**Ошибка при отправке формы */
@@ -141,7 +157,7 @@ const displayMessageError = (error) => {
   // удаление окна
   const closeError = () => {
     errorMessageElement.remove();
-    document.removeEventListener('keydown', eventOnEsc);
+    // document.removeEventListener('keydown', eventOnEsc);
   };
 
   //после нажатия на  .error__button
@@ -157,15 +173,18 @@ const displayMessageError = (error) => {
 
 };
 
+// TODO Nikolay: плохой нейминг
 const sendForm = () => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const formData = new FormData(evt.target);
     if (pristine.validate()) {
+      // TODO вставить заглушки Nikolay
+      // sendData(formDate, () => {}, () => {});
       sendData(formData, displayMessageError);
     }
   });
 };
 
-export {sendForm};
+export {sendForm, displayMessageSuccess};
 

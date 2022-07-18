@@ -12,7 +12,8 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
+// TODO body сделать 1-ым Nikolay
+const sendData = (body, onSuccess, onFail) => {
   fetch(
     'https://26.javascript.pages.academy/keksobooking',
     {

@@ -1,3 +1,5 @@
+import { MAX_PRICE } from './setting.js';
+
 /** Создание слайдера
  * @param {} paramElement - элемент в котором отрисовывается слайдер
  * @param {} paramInput поле ввода значения
@@ -6,7 +8,7 @@ const createSlider = (paramElement, paramInput)  => {
   noUiSlider.create(paramElement, {
     range: {
       min: 0,
-      max: 100000,
+      max: MAX_PRICE,
     },
     start:0,
     step: 1000,
@@ -26,16 +28,23 @@ const createSlider = (paramElement, paramInput)  => {
   paramElement.noUiSlider.on('update', () => {
     paramInput.value = paramElement.noUiSlider.get();
   });
+
+  // TODO ************************************ Nikolay
+  // paramElement.setAttribute('disabled', true);
+  // ************************************
 };
 
-// //обновление значения слайдера
-// valueElement.addEventListener('input', () => {
-//   sliderElement.noUiSlider.updateOptions(
-//     {
-//       start: `${valueElement.value}`
-//     }
-//   );
-// });
+// TODO ************************************ Nikolay
+// const disableSlider = () => {
+
+// };
+
+// const changeSliderRange = () => {
+
+// };
+// ************************************
+
+//валидация слайдер
 
 
 export {createSlider};

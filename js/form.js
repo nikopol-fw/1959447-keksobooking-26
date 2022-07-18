@@ -16,6 +16,7 @@ const disableForm = () => {
   fieldsetElements.forEach((fieldElement) => {
     fieldElement.disabled = true;
   });
+  // Блокировать слайдер
 };
 
 /** Перевод формы в активное состояние */
