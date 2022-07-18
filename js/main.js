@@ -1,20 +1,21 @@
 import { generateArrayAdvertisments } from './data.js';
-import { createCardElement, renderCard } from './map.js';
-// import {disableForm, disableMapFilters} from './form.js';
-import {pristine} from './form-validation.js';
-
+import {disableForm} from './form.js';
+import {sendForm} from './form-validation.js';
+import {initMap, addPoints} from './map.js';
+import {COORDINATE_MAP, COUNT_MAP_ZOOM, COUNT_MATCHING_OPTIONS} from './setting.js';
 
 /** Массив объявлений */
-const advertisments = generateArrayAdvertisments(10);
-
-/** Создание карточки */
-const cardElements = advertisments.map(createCardElement);
-
-/** Отрисовать на карте 1 карточку */
-renderCard(cardElements[0]);
+// eslint-disable-next-line no-unused-vars
+const advertisments = generateArrayAdvertisments(COUNT_MATCHING_OPTIONS);
 
 /**При открытии страница находится в неактивном состоянии */
-// disableForm();
-// disableMapFilters();
+disableForm();
 
-pristine();
+initMap(COORDINATE_MAP, COUNT_MAP_ZOOM);
+
+// создание меток объявлений на карте
+addPoints(advertisments);
+
+// getData();
+
+sendForm();
