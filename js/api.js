@@ -9,8 +9,6 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-
-// TODO body сделать 1-ым Nikolay
 const sendData = (body, onSuccess, onFail) => {
   fetch(
     'https://26.javascript.pages.academy/keksobooking',
@@ -30,6 +28,5 @@ const sendData = (body, onSuccess, onFail) => {
       onFail('Форма не отправлена. Попробуйте еще раз.');
     });
 };
-
 
 export {getData, sendData};

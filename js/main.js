@@ -1,35 +1,14 @@
 import {initMap, addPoints} from './map.js';
 import {COORDINATE_MAP, COUNT_MAP_ZOOM} from './consts.js';
-import {disableFilterForm} from './form-filter.js';
-import {disableForm, initForm} from './form.js';
-import {disableSlider} from './form-slider.js';
-import {displayMessageError} from './message.js';
+import {initForm, setUserFormSubmit} from './form.js';
+import {displayMessageError, displayMessageSuccess} from './message.js';
 import {getData} from './api.js';
-
+import {disablePage} from './general.js';
 
 initForm();
-
-// При открытии страница находится в неактивном состоянии
-const disablePage = () => {
-  disableFilterForm();
-  disableForm();
-  disableSlider();
-};
-
 disablePage();
-
 initMap(COORDINATE_MAP, COUNT_MAP_ZOOM);
-
-// sendForm();
-
 getData(addPoints, displayMessageError);
 
-// const onGetDataSuccess = () => {
+setUserFormSubmit(displayMessageSuccess);
 
-// };
-
-// const onGetDataError = () => {
-
-// };
-
-// getData(onGetDataSuccess);
