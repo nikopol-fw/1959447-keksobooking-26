@@ -24,15 +24,15 @@ const pinMarkerElement = L.marker(
 );
 
 
-/** перевод страницы в активное состояние */
+/** Переводит страницу в активное состояние */
 const enablePage = () => {
   enableForm();
   enableFilterForm();
   enableSlider();
 };
 
-
-/** Отрисовка карты
+/**
+ * Отрисовывает карту
  * @param {object} coordinate geographical coordinates
  * @param {Number} count  zoom level
  */

@@ -1,7 +1,9 @@
-import {createSlider} from './form-slider.js';
+import {initSlider} from './form-slider.js';
+import {validateForm} from './form-validation.js';
 
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
+const addressElement = document.querySelector('#address');
 
 
 const disableForm = () => {
@@ -19,7 +21,8 @@ const enableForm = () => {
 
 //объединит все действия с формой: слайдер, валидация
 const initForm = () => {
-  createSlider();
+  initSlider();
+  addressElement.readonly = true;
 };
 
 // TODO Nikolay: плохой нейминг
