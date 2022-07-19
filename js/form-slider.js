@@ -1,9 +1,10 @@
-import { MAX_PRICE } from './consts.js';
+import {MAX_PRICE} from './consts.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 const valueElement = document.querySelector('.ad-form__value');
 
-/** Создание слайдера
+/**
+ * Инициализация слайдера
  * @param {} sliderElement - элемент в котором отрисовывается слайдер
  * @param {} valueElement - поле ввода значения
  */

@@ -1,6 +1,6 @@
 import {createCardElement} from './cards.js';
 import {enableForm} from './form.js';
-import {COORDINATE_MAP, COUNT_MAP_ZOOM} from './consts.js';
+import {COORDINATE_MAP, COUNT_MAP_ZOOM, NUMBER_MARKERS} from './consts.js';
 import {enableFilterForm} from './form-filter.js';
 import {enableSlider} from './form-slider.js';
 
@@ -78,7 +78,7 @@ const createMarker = (paramPoint) => {
 };
 
 const addPoints = (paramData) => {
-  paramData.forEach((paramPoint) => {
+  paramData.slice(0, NUMBER_MARKERS).forEach((paramPoint) => {
     createMarker(paramPoint);
   });
 };
