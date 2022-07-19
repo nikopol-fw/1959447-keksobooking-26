@@ -1,4 +1,4 @@
-import {MAX_PRICE} from './setting.js';
+import {MAX_PRICE} from './consts.js';
 
 const formElement = document.querySelector('.ad-form');
 const sliderElement = document.querySelector('.ad-form__slider');
@@ -10,7 +10,7 @@ const typeElement = formElement.querySelector('#type');
 const timeParentElement = formElement.querySelector('.ad-form__element--time');
 const timeInElement = formElement.querySelector('#timein');
 const timeOutElement = formElement.querySelector('#timeout');
-const addressElement = document.querySelector('#address');
+
 
 const pristine = new Pristine(formElement, {
   classTo: 'ad-form__element',
@@ -55,6 +55,7 @@ const getRoomNumberErrorMessage = (value) => {
 };
 
 pristine.addValidator(roomNumberElement, validateRoomNumber, getRoomNumberErrorMessage);
+
 capacityElement.addEventListener('change', () => {
   pristine.validate(roomNumberElement);
 });
@@ -117,12 +118,14 @@ const validateType = (value) => {
 
 pristine.addValidator(typeElement, validateType);
 
-
 /**Синхронизация «Время заезда», «Время выезда». */
 timeParentElement.addEventListener('change', (evt) => {
   timeInElement.value = evt.target.value;
   timeOutElement.value = evt.target.value;
 });
 
-// Запрет ручного редактирования поля Адрес(координаты)
-addressElement.readonly = true;
+const validateForm = () => {
+  pristine.validate();
+};
+
+export {validateForm};
