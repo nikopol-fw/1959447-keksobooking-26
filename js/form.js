@@ -1,25 +1,15 @@
-import {createSlider} from './slider.js';
+import {createSlider} from './form-slider.js';
 
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
-const sliderElement = document.querySelector('.ad-form__slider');
-const valueElement = document.querySelector('.ad-form__value');
-
-//создание слайдера
-createSlider(sliderElement, valueElement);
 
 
-// TODO Слайдер также должен быть заблокирован - он в fieldset. Дополнительная блокирвока по классу ad-form__slider не сделана.
-/** Перевод формы в неактивное состояние */
 const disableForm = () => {
   formElement.classList.add('ad-form--disabled');
   fieldsetElements.forEach((fieldElement) => {
     fieldElement.disabled = true;
   });
-  // Блокировать слайдер
 };
-
-/** Перевод формы в активное состояние */
 const enableForm = () => {
   formElement.classList.remove('ad-form--disabled');
   fieldsetElements.forEach((fieldElement) => {
@@ -29,8 +19,24 @@ const enableForm = () => {
 
 //объединит все действия с формой: слайдер, валидация
 const initForm = () => {
+  createSlider();
+};
 
+// TODO Nikolay: плохой нейминг
+// eslint-disable-next-line
+const sendForm = () => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    // eslint-disable-next-line
+    const formData = new FormData(evt.target);
+    // eslint-disable-next-line
+    if (pristine.validate()) {
+      // TODO вставить заглушки Nikolay
+      // sendData(formDate, () => {}, () => {});
+
+      // sendData(formData, displayMessageError);
+    }
+  });
 };
 
 export {disableForm, enableForm, initForm};
-

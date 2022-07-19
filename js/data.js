@@ -1,8 +1,6 @@
 import {getRandomPositiveFloat, getRandomPositiveInteger} from './util.js';
 
-
 //работа с массивами
-
 /**
  * Функция перемешивает элементы массива
  * источник - https://habr.com/ru/post/358094/
@@ -38,8 +36,7 @@ const getNewArrayItems = (array) => {
 
 const maxAvatar = 10;
 
-/**
- * Создание массива заданной длины
+/** Создание массива заданной длины
  * @returns {string}
  */
 const avatarsImg = Array.from({
@@ -71,6 +68,8 @@ const maxRooms = 6;
 const foreverAlone = 1;
 const maxGuests = 6;
 
+//todo
+// eslint-disable-next-line
 const generateAdvertisement = () => {
   const randomIndex = getRandomPositiveInteger(0, avatarsImg.length - 1);
   const [avatar] = avatarsImg.splice(randomIndex, 1);
@@ -105,15 +104,14 @@ const generateAdvertisement = () => {
   };
 };
 
-/**
- * Создание массива объявленной длины
+/** Создание массива объявленной длины
  *  Источник https://up.htmlacademy.ru/profession/frontender/13/javascript/26/demos/7619#12
  * @param {number} advertisementCount -количество создаваемых объявлений
  */
-const generateArrayAdvertisments = (advertisementCount) => Array.from({
-  length: advertisementCount
-}, generateAdvertisement);
+// const generateArrayAdvertisments = (advertisementCount) => Array.from({
+//   length: advertisementCount
+// }, generateAdvertisement);
 
-export {
-  generateArrayAdvertisments
-};
+// export {
+//   generateArrayAdvertisments
+// };
