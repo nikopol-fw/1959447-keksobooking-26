@@ -5,7 +5,7 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 
 const displayMessageSuccess = () => {
   const successMessageElement = successTemplate.cloneNode(true);
-  document.appendChild(successMessageElement);
+  document.body.appendChild(successMessageElement);
   setTimeout(() => {
     successMessageElement.remove();
   }, MESSAGE_TIME);

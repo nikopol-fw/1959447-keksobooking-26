@@ -124,8 +124,5 @@ timeParentElement.addEventListener('change', (evt) => {
   timeOutElement.value = evt.target.value;
 });
 
-const validateForm = () => {
-  pristine.validate();
-};
 
-export {validateForm};
+export {pristine};

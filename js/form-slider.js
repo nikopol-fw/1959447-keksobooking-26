@@ -42,4 +42,10 @@ const enableSlider = () => {
   sliderElement.removeAttribute('disabled');
 };
 
-export {initSlider, enableSlider, disableSlider};
+const resetSlider = () => {
+  sliderElement.noUiSlider.updateOptions( {
+    start: 0,
+  });
+};
+
+export {initSlider, enableSlider, disableSlider, resetSlider};

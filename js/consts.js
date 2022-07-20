@@ -11,7 +11,7 @@ const COUNT_MAP_ZOOM = 12;
 
 const MAX_PRICE = 100000;
 
-const MESSAGE_TIME = 1000;
+const MESSAGE_TIME = 2000;
 
 const NUMBER_MARKERS = 10;
 
