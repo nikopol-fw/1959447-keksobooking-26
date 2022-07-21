@@ -1,26 +1,26 @@
-import {FILE_TYPES} from './consts.js';
+import {IMAGE_FILE_TYPES} from './consts.js';
 
 const avatarImageChooserElement = document.querySelector('#avatar');
 const avatarPreviewElement = document.querySelector('.ad-form-header__preview').querySelector('img');
 const houseImageChooserElement = document.querySelector('.ad-form__input');
 const houseImagePreviewElement = document.querySelector('.ad-form__photo');
 
-const setImageAvatar = () => {
+const addAvatarLoader = () => {
   avatarImageChooserElement.addEventListener('change', () => {
     const file = avatarImageChooserElement.files[0];
     const fileName = file.name.toLowerCase();
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    const matches = IMAGE_FILE_TYPES.some((it) => fileName.endsWith(it));
     if (matches) {
       avatarPreviewElement.src = URL.createObjectURL(file);
     }
   });
 };
 
-const setImageHouse = () => {
+const addImageHouseLoader = () => {
   houseImageChooserElement.addEventListener('change', () => {
     const file = houseImageChooserElement.files[0];
     const fileName = file.name.toLowerCase();
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    const matches = IMAGE_FILE_TYPES.some((it) => fileName.endsWith(it));
 
     if (matches) {
       houseImagePreviewElement.innerHTML = '';
@@ -34,6 +34,6 @@ const setImageHouse = () => {
   });
 };
 
-export {setImageHouse, setImageAvatar};
+export {addImageHouseLoader, addAvatarLoader};
 
 
