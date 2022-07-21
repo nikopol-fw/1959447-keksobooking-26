@@ -3,6 +3,7 @@ import {initSlider, resetSlider} from './form-slider.js';
 import {pristine} from './form-validation.js';
 import {resetMap} from './map.js';
 import {displayMessageError} from './message.js';
+import { setImageHouse, setImageAvatar } from './images.js';
 
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
@@ -50,6 +51,8 @@ const initForm = () => {
   initSlider();
   addressElement.readonly = true;
   resetFormButton();
+  setImageHouse();
+  setImageAvatar();
 };
 
 const setUserFormSubmit = (onSuccess) => {
