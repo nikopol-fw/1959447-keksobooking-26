@@ -79,10 +79,15 @@ const createMarker = (paramPoint) => {
 };
 
 const addPoints = (paramData) => {
+  // полученные данные ты записываешь в хранилище, и потом обращаешься к нему, чтобы получить то что нужно.
+  // const paramDataFragment = document.createDocumentFragment();
+
   paramData.slice(0, NUMBER_MARKERS).forEach((paramPoint) => {
     createMarker(paramPoint);
   });
+
   pinMarkerElement.addTo(markerGroup);
+
 };
 
 /** возвращает начальные значения */

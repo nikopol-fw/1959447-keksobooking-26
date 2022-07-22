@@ -1,3 +1,5 @@
+// import {DEBOUNCE_DELAY} from './consts.js';
+
 const formFilterElement = document.querySelector('.map__filters ');
 const fildsetFilterElements = formFilterElement.querySelectorAll('select, input');
 
@@ -16,3 +18,14 @@ const enableFilterForm = () => {
 };
 
 export {disableFilterForm, enableFilterForm};
+
+// const filtersElement = document.querySelector('.map__filters');
+// const typeFilterElement = filtersElement.querySelector('#housing-type');
+
+// const getFilteredAdvertisements = (array) => {
+//   const filterType = (advertisement) => typeFilterElement.value === advertisement.offer.type;
+
+
+// };
+
+
