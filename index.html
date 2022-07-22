@@ -161,6 +161,7 @@
                   id="avatar"
                   name="avatar"
                   class="ad-form-header__input visually-hidden"
+                  accept="image/png, image/jpeg"
                 />
                 <label class="ad-form-header__drop-zone" for="avatar"
                   >Загрузить<br />фото...</label
@@ -189,7 +190,7 @@
             <label class="ad-form__label" for="address"
               >Адрес (координаты)</label
             >
-            <input id="address" name="address" type="text" readonly />
+            <input id="address" name="address" type="text" readonly required/>
           </fieldset>
           <fieldset class="ad-form__element">
             <label class="ad-form__label" for="type">Тип жилья</label>

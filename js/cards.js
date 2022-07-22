@@ -6,10 +6,8 @@ const typeHabitation = {
   hotel: 'Отель',
 };
 
-// шаблон #card, забираем то что будем копировать
 const popupTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-/* Создание карточки объявлений */
 const createCardElement = (paramAdvertisement) => {
   const cardElement = popupTemplate.cloneNode(true);
 
@@ -22,12 +20,34 @@ const createCardElement = (paramAdvertisement) => {
   const descriptionElement = cardElement.querySelector('.popup__description');
   const avatarElement = cardElement.querySelector('.popup__avatar');
 
-  titleElement.textContent = paramAdvertisement.offer.title;
-  addressElement.textContent = paramAdvertisement.offer.address;
-  priceElement.textContent = `${paramAdvertisement.offer.price} ₽/ночь`;
+  if (!paramAdvertisement.offer.title) {
+    paramAdvertisement.offer.title.remove();
+  } else {
+    titleElement.textContent = paramAdvertisement.offer.title;
+  }
+
+  if (!paramAdvertisement.offer.address) {
+    paramAdvertisement.offer.address.remove();
+  } else {
+    addressElement.textContent = paramAdvertisement.offer.address;
+  }
+
+  if (!paramAdvertisement.offer.price) {
+    paramAdvertisement.offer.price.remove();
+  } else {
+    priceElement.textContent = `${paramAdvertisement.offer.price} ₽/ночь`;
+  }
+
+  if (!paramAdvertisement.author.avatar) {
+    paramAdvertisement.author.avatar.remove();
+  } else {
+    avatarElement.src = paramAdvertisement.author.avatar;
+  }
+
+  checkinOutElement.textContent = `Заезд после ${paramAdvertisement.offer.checkin}, выезд до ${paramAdvertisement.offer.checkout}`;
   typeElement.textContent = typeHabitation[paramAdvertisement.offer.type];
   roomsGuestsElement.textContent = `${paramAdvertisement.offer.rooms} комнаты для ${paramAdvertisement.offer.guests} гостей`;
-  checkinOutElement.textContent = `Заезд после ${paramAdvertisement.offer.checkin}, выезд до ${paramAdvertisement.offer.checkout}`;
+
 
   if (!paramAdvertisement.offer.description) {
     descriptionElement.remove();
@@ -35,10 +55,8 @@ const createCardElement = (paramAdvertisement) => {
     descriptionElement.textContent = paramAdvertisement.offer.description;
   }
 
-  avatarElement.src = paramAdvertisement.author.avatar;
-
   const featuresContainerElement = cardElement.querySelector('.popup__features');
-  if (paramAdvertisement.offer.features.lenght === 0) {
+  if (!paramAdvertisement.offer.features || paramAdvertisement.offer.features.lenght === 0) {
     featuresContainerElement.remove();
   } else {
     featuresContainerElement.innerHTML = '';
@@ -68,6 +86,5 @@ const createCardElement = (paramAdvertisement) => {
   }
   return cardElement;
 };
-
 
 export {createCardElement};

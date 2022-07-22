@@ -1,14 +1,3 @@
-// отправка и получение данных getDat sendData - две функции
-// import {displayMessageError, displayMessageSuccess } from './message.js';
-
-// const getData = (onSuccess) => {
-//   fetch('https://26.javascript.pages.academy/keksobooking/data')
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data);
-//       onSuccess(data);
-//     });
-// };
 const getData = (onSuccess, onFail) => {
   fetch('https://26.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
@@ -16,18 +5,16 @@ const getData = (onSuccess, onFail) => {
       onSuccess(data);
     })
     .catch(() => {
-      onFail('Произошла ошибка при загрузке. Попробуйте ещё раз.');
+      onFail('Ошибка при загрузке. Позже попробуйте ещё раз.');
     });
 };
 
-
-// TODO body сделать 1-ым Nikolay
-const sendData = (body, onSuccess, onFail) => {
+const sendData = (onSuccess, onFail, body) => {
   fetch(
     'https://26.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
-      body: body,
+      body,
     },
   )
     .then((response) => {
@@ -41,6 +28,5 @@ const sendData = (body, onSuccess, onFail) => {
       onFail('Форма не отправлена. Попробуйте еще раз.');
     });
 };
-
 
 export {getData, sendData};

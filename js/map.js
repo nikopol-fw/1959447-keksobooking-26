@@ -1,6 +1,6 @@
 import {createCardElement} from './cards.js';
 import {enableForm} from './form.js';
-import {COORDINATE_MAP, COUNT_MAP_ZOOM} from './consts.js';
+import {COORDINATE_MAP, COUNT_MAP_ZOOM, NUMBER_MARKERS} from './consts.js';
 import {enableFilterForm} from './form-filter.js';
 import {enableSlider} from './form-slider.js';
 
@@ -47,6 +47,7 @@ const initMap = (coordinate, count) => {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
+  addressElement.value = `${COORDINATE_MAP.lat}, ${COORDINATE_MAP.lng}`;
   pinMarkerElement.setLatLng(coordinate).addTo(map);
 };
 
@@ -78,9 +79,10 @@ const createMarker = (paramPoint) => {
 };
 
 const addPoints = (paramData) => {
-  paramData.forEach((paramPoint) => {
+  paramData.slice(0, NUMBER_MARKERS).forEach((paramPoint) => {
     createMarker(paramPoint);
   });
+  pinMarkerElement.addTo(markerGroup);
 };
 
 /** возвращает начальные значения */

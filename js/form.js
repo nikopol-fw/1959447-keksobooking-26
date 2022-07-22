@@ -1,10 +1,15 @@
-import {initSlider} from './form-slider.js';
-import {validateForm} from './form-validation.js';
+import { sendData } from './api.js';
+import {initSlider, resetSlider} from './form-slider.js';
+import {pristine} from './form-validation.js';
+import {resetMap} from './map.js';
+import {displayMessageError} from './message.js';
+import { addImageHouseLoader, addAvatarLoader } from './images.js';
 
 const formElement = document.querySelector('.ad-form');
 const fieldsetElements = formElement.querySelectorAll('fieldset');
 const addressElement = document.querySelector('#address');
-
+const submitButtonElement = formElement.querySelector('.ad-form__submit');
+const resetButtonElement = formElement.querySelector('.ad-form__reset');
 
 const disableForm = () => {
   formElement.classList.add('ad-form--disabled');
@@ -19,27 +24,57 @@ const enableForm = () => {
   });
 };
 
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+};
+
+const unBlockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+};
+
+const resetForm = () => {
+  formElement.reset();
+  pristine.reset();
+  resetMap();
+  resetSlider();
+};
+
+const resetFormButton = () => {
+  resetButtonElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetForm();
+  });
+};
+
 //объединит все действия с формой: слайдер, валидация
 const initForm = () => {
   initSlider();
   addressElement.readonly = true;
+  resetFormButton();
+  addImageHouseLoader();
+  addAvatarLoader();
 };
 
-// TODO Nikolay: плохой нейминг
-// eslint-disable-next-line
-const sendForm = () => {
-  formElement.addEventListener('submit', (evt) => {
+const setUserFormSubmit = (onSuccess) => {
+  formElement.addEventListener ('submit', (evt) => {
     evt.preventDefault();
-    // eslint-disable-next-line
-    const formData = new FormData(evt.target);
-    // eslint-disable-next-line
-    if (pristine.validate()) {
-      // TODO вставить заглушки Nikolay
-      // sendData(formDate, () => {}, () => {});
 
-      // sendData(formData, displayMessageError);
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unBlockSubmitButton();
+          resetForm();
+        },
+        () => {
+          displayMessageError();
+        },
+        new FormData(evt.target),
+      );
     }
   });
 };
 
-export {disableForm, enableForm, initForm};
+export {disableForm, enableForm, initForm, setUserFormSubmit};
