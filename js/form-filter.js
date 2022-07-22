@@ -1,7 +1,8 @@
-// import {DEBOUNCE_DELAY} from './consts.js';
+import {addPoints, markerGroup} from './map.js';
 
 const formFilterElement = document.querySelector('.map__filters ');
 const fildsetFilterElements = formFilterElement.querySelectorAll('select, input');
+const filterElement = document.querySelector('.map__filters');
 
 const disableFilterForm = () => {
   formFilterElement.classList.add('map__filters--disabled');
@@ -17,15 +18,68 @@ const enableFilterForm = () => {
   });
 };
 
-export {disableFilterForm, enableFilterForm};
+const filterType = (paramAdvertisement) => {
+  const typeElement = filterElement.querySelector('#housing-type');
+  return typeElement.value === paramAdvertisement.offer.type || typeElement.value === 'any';
+};
 
-// const filtersElement = document.querySelector('.map__filters');
-// const typeFilterElement = filtersElement.querySelector('#housing-type');
+const filterRooms = (item) => {
+  const roomsElement = filterElement.querySelector('#housing-rooms');
+  return Number(roomsElement.value) === Number(item.offer.rooms) || roomsElement.value === 'any';
+};
 
-// const getFilteredAdvertisements = (array) => {
-//   const filterType = (advertisement) => typeFilterElement.value === advertisement.offer.type;
+const filterGuestsNumber = (item) => {
+  const guestsNumberElement = filterElement.querySelector('#housing-guests');
+  return Number(guestsNumberElement.value) === Number(item.offer.guests) || guestsNumberElement.value === 'any';
+};
 
+const filterPrice = (item) => {
+  const priceElement = filterElement.querySelector('#housing-price');
+  if(priceElement.value === 'any') {
+    return item.offer.price;
+  }
+  if(priceElement.value === 'middle') {
+    return item.offer.price >= 10000 && item.offer.price <= 50000;
+  }
+  if(priceElement.value === 'low') {
+    return item.offer.price < 10000;
+  }
+  if(priceElement.value === 'high') {
+    return item.offer.price > 50000;
+  }
 
-// };
+  return false;
+};
 
+const filterFeatures = (item) => {
+  const filtersFeatures = [];
+  const checkedFilters = document
+    .querySelector('.map__features')
+    .querySelectorAll('input:checked');
+  checkedFilters.forEach((element) => filtersFeatures.push(element.value));
+  if (item.offer.features) {
+    return filtersFeatures.every((feature) => item.offer.features.includes(feature));
+  }
+  return false;
+};
 
+const filterMap = (paramData) => {
+  markerGroup.clearLayers();
+
+  const filtered = paramData
+    .filter(filterType)
+    .filter(filterRooms)
+    .filter(filterGuestsNumber)
+    .filter(filterPrice)
+    .filter(filterFeatures);
+
+  addPoints (filtered);
+};
+
+const setFilterChange = (cb) => {
+  filterElement.addEventListener('change', () => {
+    cb();
+  });
+};
+
+export {disableFilterForm, enableFilterForm, filterMap,  setFilterChange};

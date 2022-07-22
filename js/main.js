@@ -4,6 +4,9 @@ import {initForm, setUserFormSubmit} from './form.js';
 import {displayMessageError, displayMessageSuccess} from './message.js';
 import {getData} from './api.js';
 import {disablePage} from './general.js';
+import {DEBOUNCE_DELAY} from './consts.js';
+import {setFilterChange, filterMap} from './form-filter.js';
+import {debounce} from './util.js';
 
 
 initForm();
@@ -13,3 +16,11 @@ getData(addPoints, displayMessageError);
 
 setUserFormSubmit(displayMessageSuccess);
 
+
+getData((data) => {
+  addPoints(data);
+  setFilterChange(debounce(
+    () => filterMap(data),
+    DEBOUNCE_DELAY,
+  ));
+}, displayMessageError);

@@ -58,6 +58,10 @@ pinMarkerElement.on('moveend', (evt) => {
 
 /**Создание слоя и добавление на карту */
 const markerGroup = L.layerGroup().addTo(map);
+/**
+ * отдельный слой для основной метки, для исключения из фильтрации.
+ */
+const mainMarkerGroup = L.layerGroup().addTo(map);
 
 
 // блок отрисовки похожих объявлений
@@ -81,12 +85,11 @@ const createMarker = (paramPoint) => {
 const addPoints = (paramData) => {
   // полученные данные ты записываешь в хранилище, и потом обращаешься к нему, чтобы получить то что нужно.
   // const paramDataFragment = document.createDocumentFragment();
-
   paramData.slice(0, NUMBER_MARKERS).forEach((paramPoint) => {
     createMarker(paramPoint);
   });
 
-  pinMarkerElement.addTo(markerGroup);
+  pinMarkerElement.addTo(mainMarkerGroup);
 
 };
 
@@ -97,6 +100,8 @@ const resetMap = () => {
   map.setView(COORDINATE_MAP, COUNT_MAP_ZOOM);
 };
 
-const clearPinMarkers = () => markerGroup.clearLayers();
+//todo похоже нигде не используются. проверить.
+// const clearPinMarkers = () => markerGroup.clearLayers();
+// const clearMainPinMarkers = () => mainMarkerGroup.clearLayers();
 
-export {initMap, addPoints, clearPinMarkers, resetMap};
+export {initMap, addPoints, resetMap, markerGroup};
