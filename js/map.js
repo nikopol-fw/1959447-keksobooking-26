@@ -1,12 +1,15 @@
-import {createCardElement} from './cards.js';
-import {enableForm} from './form.js';
-import {COORDINATE_MAP, COUNT_MAP_ZOOM, NUMBER_MARKERS} from './consts.js';
-import {enableFilterForm} from './form-filter.js';
-import {enableSlider} from './form-slider.js';
+import { createCardElement } from './cards.js';
+import { enableForm } from './form.js';
+import { COORDINATE_MAP, COUNT_MAP_ZOOM, MAX_POINTS_RENDER_LIMIT } from './consts.js';
+import { enableFilterForm } from './form-filter.js';
+import { enableSlider } from './form-slider.js';
+
 
 const formElement = document.querySelector('.ad-form');
 const addressElement = document.querySelector('#address');
 const map = L.map('map-canvas');
+
+let sourceAds = [];
 
 // блок отрисовки главной метки
 const pinIconElement = L.icon({
@@ -22,6 +25,12 @@ const pinMarkerElement = L.marker(
     icon: pinIconElement,
   },
 );
+
+const getAds = () => sourceAds.slice();
+
+const setAds = (newAds) => {
+  sourceAds = newAds;
+};
 
 
 /** Переводит страницу в активное состояние */
@@ -73,25 +82,28 @@ const pinIconSimilarElement = L.icon({
 
 const createMarker = (paramPoint) => {
   const {lat, lng} = paramPoint.location;
-  const marker = L.marker({
-    lat,
-    lng,
-  }, {
-    pinIconSimilarElement
-  });
+  const marker = L.marker({lat, lng}, {pinIconSimilarElement});
   marker.addTo(markerGroup).bindPopup(createCardElement(paramPoint));
 };
 
-const addPoints = (paramData) => {
-  // полученные данные ты записываешь в хранилище, и потом обращаешься к нему, чтобы получить то что нужно.
-  // const paramDataFragment = document.createDocumentFragment();
-  paramData.slice(0, NUMBER_MARKERS).forEach((paramPoint) => {
-    createMarker(paramPoint);
-  });
-
-  pinMarkerElement.addTo(mainMarkerGroup);
-
+// ******************** addPoints => renderPoints **********************
+// const addPoints = (paramData) => {
+//   paramData.slice(0, NUMBER_MARKERS).forEach((paramPoint) => {
+//     createMarker(paramPoint);
+//   });
+//
+//   pinMarkerElement.addTo(mainMarkerGroup);
+// };
+const renderPoints = (ads) => {
+  const limitedAds = ads.length > MAX_POINTS_RENDER_LIMIT ? ads.slice(0, MAX_POINTS_RENDER_LIMIT) : ads;
+  limitedAds.forEach((ad) => createMarker(ad));
 };
+// ****************************************************************
+
+const clearMap = () => {
+  markerGroup.clearLayers();
+};
+
 
 /** возвращает начальные значения */
 const resetMap = () => {
@@ -104,4 +116,5 @@ const resetMap = () => {
 // const clearPinMarkers = () => markerGroup.clearLayers();
 // const clearMainPinMarkers = () => mainMarkerGroup.clearLayers();
 
-export {initMap, addPoints, resetMap, markerGroup};
+
+export { getAds, setAds, renderPoints, clearMap, initMap, resetMap, markerGroup };
